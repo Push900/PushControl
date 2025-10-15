@@ -511,17 +511,17 @@ const SmartHomeControlHub = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6">
           {/* Sidebar - Available Devices */}
           <div className="lg:sticky lg:top-24 h-fit">
-            <Card className="shadow-lg">
+            <Card className={`shadow-lg ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
               <CardHeader>
-                <CardTitle className="text-lg">Available Devices</CardTitle>
+                <CardTitle className={`text-lg ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Available Devices</CardTitle>
                 <div className="relative mt-3">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
                   <Input
                     type="text"
                     placeholder="Search devices..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-9"
+                    className={`pl-9 ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-gray-100 placeholder:text-gray-400' : ''}`}
                     aria-label="Search available devices"
                   />
                 </div>
@@ -529,7 +529,7 @@ const SmartHomeControlHub = () => {
               <CardContent>
                 <div className="space-y-3 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
                   {filteredAvailableDevices.length === 0 ? (
-                    <div className="text-center py-8 text-gray-400">
+                    <div className={`text-center py-8 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
                       <p className="text-sm">
                         {searchQuery ? 'No devices found' : 'All devices are assigned'}
                       </p>
