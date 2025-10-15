@@ -501,6 +501,7 @@ const SmartHomeControlHub = () => {
                 onDrop={handleDrop}
                 onUpdateDevice={updateDevice}
                 onRemoveDevice={removeDeviceFromRoom}
+                theme={theme}
               />
             ))}
           </div>
