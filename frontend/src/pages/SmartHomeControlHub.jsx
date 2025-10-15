@@ -26,10 +26,42 @@ const initialDevices = [
 ];
 
 const initialRooms = [
-  { id: 'room-1', name: 'Living Room', color: '#450693', devices: [] },
-  { id: 'room-2', name: 'Office', color: '#8C00FF', devices: [] },
-  { id: 'room-3', name: 'Bedroom', color: '#FF3F7F', devices: [] },
-  { id: 'room-4', name: 'Kitchen', color: '#FFC400', devices: [] },
+  { 
+    id: 'room-1', 
+    name: 'Living Room', 
+    color: '#450693', 
+    devices: [
+      { id: 'dev-1', name: 'Main Light', type: 'light', status: 'on', brightness: 80 },
+      { id: 'dev-9', name: 'TV', type: 'plug', status: 'on' }
+    ] 
+  },
+  { 
+    id: 'room-2', 
+    name: 'Office', 
+    color: '#8C00FF', 
+    devices: [
+      { id: 'dev-12', name: 'Workspace Light', type: 'light', status: 'on', brightness: 85 },
+      { id: 'dev-7', name: 'Desk Fan', type: 'fan', status: 'off', speed: 1 }
+    ] 
+  },
+  { 
+    id: 'room-3', 
+    name: 'Bedroom', 
+    color: '#FF3F7F', 
+    devices: [
+      { id: 'dev-3', name: 'Reading Lamp', type: 'light', status: 'on', brightness: 60 },
+      { id: 'dev-5', name: 'Bedroom AC', type: 'thermostat', status: 'off', temperature: 68 }
+    ] 
+  },
+  { 
+    id: 'room-4', 
+    name: 'Kitchen', 
+    color: '#FFC400', 
+    devices: [
+      { id: 'dev-11', name: 'Kitchen Light', type: 'light', status: 'on', brightness: 90 },
+      { id: 'dev-8', name: 'Coffee Maker', type: 'plug', status: 'off' }
+    ] 
+  },
 ];
 
 const STORAGE_KEY = 'smart-home-state';
