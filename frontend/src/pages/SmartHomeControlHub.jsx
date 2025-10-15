@@ -483,6 +483,7 @@ const SmartHomeControlHub = () => {
                         device={device}
                         onUpdate={updateDevice}
                         isDragging={draggedDevice === device.id}
+                        theme={theme}
                       />
                     ))
                   )}
