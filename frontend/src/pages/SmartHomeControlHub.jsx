@@ -199,7 +199,7 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
   );
 };
 
-const RoomPanel = ({ room, devices, onDrop, onUpdateDevice, onRemoveDevice }) => {
+const RoomPanel = ({ room, devices, onDrop, onUpdateDevice, onRemoveDevice, theme }) => {
   const [isOver, setIsOver] = useState(false);
 
   const handleDragOver = (e) => {
@@ -221,14 +221,15 @@ const RoomPanel = ({ room, devices, onDrop, onUpdateDevice, onRemoveDevice }) =>
     e.preventDefault();
     setIsOver(false);
     const deviceId = e.dataTransfer.getData('deviceId');
-    onDrop(room.id, deviceId);
+    if (deviceId) {
+      onDrop(room.id, deviceId);
+    }
   };
 
   return (
     <Card
-      className={`transition-all duration-300 ${
-        isOver ? 'ring-4 ring-blue-400 scale-[1.02]' : ''
-      }`}
+      className={`transition-all duration-300 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}
+      style={isOver ? { boxShadow: `0 0 0 4px ${room.color}`, transform: 'scale(1.02)' } : {}}
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
@@ -236,9 +237,12 @@ const RoomPanel = ({ room, devices, onDrop, onUpdateDevice, onRemoveDevice }) =>
     >
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2">
-          <div className={`h-3 w-3 rounded-full bg-gradient-to-br ${room.accentColor}`} />
-          <span className="text-lg">{room.name}</span>
-          <span className="text-sm font-normal text-gray-500 ml-auto">
+          <div 
+            className="h-3 w-3 rounded-full" 
+            style={{ backgroundColor: room.color }}
+          />
+          <span className={`text-lg ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>{room.name}</span>
+          <span className={`text-sm font-normal ml-auto ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
             {devices.length} {devices.length === 1 ? 'device' : 'devices'}
           </span>
         </CardTitle>
@@ -246,7 +250,7 @@ const RoomPanel = ({ room, devices, onDrop, onUpdateDevice, onRemoveDevice }) =>
       <CardContent>
         <div className="space-y-3 min-h-[200px]">
           {devices.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-[200px] text-gray-400">
+            <div className={`flex flex-col items-center justify-center h-[200px] ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
               <Plus className="w-8 h-8 mb-2" />
               <p className="text-sm">Drag devices here</p>
             </div>
@@ -258,6 +262,8 @@ const RoomPanel = ({ room, devices, onDrop, onUpdateDevice, onRemoveDevice }) =>
                 onUpdate={onUpdateDevice}
                 onRemove={() => onRemoveDevice(room.id, device.id)}
                 inRoom
+                roomColor={room.color}
+                theme={theme}
               />
             ))
           )}
