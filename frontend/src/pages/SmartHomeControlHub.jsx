@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Lightbulb, Thermometer, Fan, Plug, Home, Search, RotateCcw, Moon, Sun, Power, ChevronUp, ChevronDown, Trash2, Plus } from 'lucide-react';
+import { Lightbulb, Thermometer, Fan, Plug, Home, Search, RotateCcw, Moon, Sun, Power, ChevronUp, ChevronDown, Trash2, Plus, Menu, User, Mail, MapPin, X } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Slider } from '../components/ui/slider';
 import { Switch } from '../components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '../components/ui/dialog';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../components/ui/sheet';
 import { toast } from '../hooks/use-toast';
 
 // Mock Data
@@ -25,13 +26,14 @@ const initialDevices = [
 ];
 
 const initialRooms = [
-  { id: 'room-1', name: 'Living Room', accentColor: 'from-blue-400 to-blue-500', devices: [] },
-  { id: 'room-2', name: 'Bedroom', accentColor: 'from-purple-400 to-purple-500', devices: [] },
-  { id: 'room-3', name: 'Kitchen', accentColor: 'from-green-400 to-green-500', devices: [] },
-  { id: 'room-4', name: 'Office', accentColor: 'from-amber-400 to-amber-500', devices: [] },
+  { id: 'room-1', name: 'Living Room', color: '#450693', devices: [] },
+  { id: 'room-2', name: 'Office', color: '#8C00FF', devices: [] },
+  { id: 'room-3', name: 'Bedroom', color: '#FF3F7F', devices: [] },
+  { id: 'room-4', name: 'Kitchen', color: '#FFC400', devices: [] },
 ];
 
 const STORAGE_KEY = 'smart-home-state';
+const THEME_KEY = 'smart-home-theme';
 
 const DeviceIcon = ({ type, className }) => {
   const iconProps = { className: className || 'w-5 h-5' };
