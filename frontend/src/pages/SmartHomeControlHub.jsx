@@ -300,6 +300,19 @@ const SmartHomeControlHub = () => {
     }
   }, []);
 
+  // Load theme from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  // Save theme to localStorage
+  useEffect(() => {
+    localStorage.setItem(THEME_KEY, theme);
+  }, [theme]);
+
   // Save state to localStorage
   useEffect(() => {
     if (devices.length > 0 || rooms.length > 0) {
