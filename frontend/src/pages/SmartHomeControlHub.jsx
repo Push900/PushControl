@@ -51,7 +51,7 @@ const DeviceIcon = ({ type, className }) => {
   }
 };
 
-const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom }) => {
+const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor, theme }) => {
   const handleDragStart = (e) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('deviceId', device.id);
@@ -76,16 +76,20 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom }) => {
     onUpdate({ ...device, speed: newSpeed });
   };
 
+  const iconBgColor = device.status === 'on' && roomColor ? roomColor : (theme === 'dark' ? '#374151' : '#f3f4f6');
+  const ringColor = device.status === 'on' && roomColor ? roomColor : '';
+
   return (
     <div
       draggable
       onDragStart={handleDragStart}
       className={`
-        relative group bg-white rounded-xl p-4 shadow-sm border border-gray-200 
-        hover:shadow-md transition-all duration-300 cursor-move
+        relative group rounded-xl p-4 shadow-sm border transition-all duration-300 cursor-move
+        ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}
+        hover:shadow-md
         ${isDragging ? 'opacity-50' : 'opacity-100'}
-        ${device.status === 'on' ? 'ring-2 ring-blue-400' : ''}
       `}
+      style={device.status === 'on' && roomColor ? { boxShadow: `0 0 0 2px ${roomColor}` } : {}}
       aria-label={`${device.name} - ${device.type} - ${device.status}`}
     >
       {inRoom && (
