@@ -406,45 +406,102 @@ const SmartHomeControlHub = () => {
     });
   };
 
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-gray-50 to-gray-100'}`}>
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
+      <header className={`border-b shadow-sm sticky top-0 z-10 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
         <div className="max-w-[1800px] mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl text-white">
+              <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="lg:hidden">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className={theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'}>
+                  <SheetHeader>
+                    <SheetTitle className={theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}>Profile</SheetTitle>
+                  </SheetHeader>
+                  <div className="mt-6 space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div 
+                        className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold"
+                        style={{ backgroundColor: '#450693' }}
+                      >
+                        UP
+                      </div>
+                      <div>
+                        <h3 className={`font-semibold text-lg ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Umang Patel</h3>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <Mail className={`w-5 h-5 mt-0.5 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
+                        <div>
+                          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Email</p>
+                          <p className={`font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-900'}`}>umang.p@somaiya.edu</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <MapPin className={`w-5 h-5 mt-0.5 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
+                        <div>
+                          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Address</p>
+                          <p className={`font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-900'}`}>B510, Bhaskaracharya</p>
+                          <p className={`font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-900'}`}>Vidyavihar, Mumbai</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+              
+              <div className="p-2 rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #450693, #8C00FF)' }}>
                 <Home className="w-6 h-6" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Smart Home Control Hub</h1>
-                <p className="text-sm text-gray-500">Manage and organize your smart devices</p>
+                <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Smart Home Control Hub</h1>
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Manage and organize your smart devices</p>
               </div>
             </div>
-            <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  <RotateCcw className="w-4 h-4" />
-                  Reset Dashboard
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Reset Dashboard</DialogTitle>
-                  <DialogDescription>
-                    This will remove all device assignments and restore the dashboard to its default state. This action cannot be undone.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <Button variant="outline" onClick={() => setResetDialogOpen(false)}>
-                    Cancel
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+              <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="gap-2 hidden sm:flex">
+                    <RotateCcw className="w-4 h-4" />
+                    Reset Dashboard
                   </Button>
-                  <Button variant="destructive" onClick={handleReset}>
-                    Reset
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                </DialogTrigger>
+                <DialogContent className={theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white'}>
+                  <DialogHeader>
+                    <DialogTitle className={theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}>Reset Dashboard</DialogTitle>
+                    <DialogDescription className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                      This will remove all device assignments and restore the dashboard to its default state. This action cannot be undone.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setResetDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button variant="destructive" onClick={handleReset}>
+                      Reset
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
         </div>
       </header>
