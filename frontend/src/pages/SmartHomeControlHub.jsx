@@ -280,6 +280,8 @@ const SmartHomeControlHub = () => {
   const [draggedDevice, setDraggedDevice] = useState(null);
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
   const [theme, setTheme] = useState('light');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState('light');
 
   // Load state from localStorage
   useEffect(() => {
