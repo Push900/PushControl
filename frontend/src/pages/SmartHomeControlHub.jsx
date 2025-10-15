@@ -78,13 +78,19 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
 
   const iconBgColor = device.status === 'on' && roomColor ? roomColor : (theme === 'dark' ? '#374151' : '#f3f4f6');
   const ringColor = device.status === 'on' && roomColor ? roomColor : '';
+  
+  // Glowing effect for lights in dark mode
+  const isLightOn = device.type === 'light' && device.status === 'on';
+  const glowStyle = isLightOn && theme === 'dark' ? {
+    filter: 'drop-shadow(0 0 8px rgba(255, 223, 0, 0.8)) drop-shadow(0 0 16px rgba(255, 223, 0, 0.6))',
+  } : {};
 
   return (
     <div
       draggable
       onDragStart={handleDragStart}
       className={`
-        relative group rounded-xl p-4 shadow-sm border transition-all duration-300 cursor-move
+        relative group rounded-xl p-4 shadow-sm border transition-all duration-300 cursor-move overflow-hidden
         ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}
         hover:shadow-md
         ${isDragging ? 'opacity-50' : 'opacity-100'}
@@ -92,6 +98,13 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
       style={device.status === 'on' && roomColor ? { boxShadow: `0 0 0 2px ${roomColor}` } : {}}
       aria-label={`${device.name} - ${device.type} - ${device.status}`}
     >
+      {/* Colored top border for devices in rooms */}
+      {inRoom && roomColor && (
+        <div 
+          className="absolute top-0 left-0 right-0 h-1"
+          style={{ backgroundColor: roomColor }}
+        />
+      )}
       {inRoom && (
         <button
           onClick={onRemove}
