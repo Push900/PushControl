@@ -126,10 +126,10 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
       </div>
 
       {device.status === 'on' && (
-        <div className="mt-4 pt-4 border-t border-gray-100 space-y-3">
+        <div className={`mt-4 pt-4 border-t space-y-3 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}>
           {device.type === 'light' && (
             <div>
-              <div className="flex justify-between text-xs text-gray-600 mb-2">
+              <div className={`flex justify-between text-xs mb-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 <span>Brightness</span>
                 <span className="font-medium">{device.brightness}%</span>
               </div>
@@ -147,7 +147,7 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
 
           {device.type === 'thermostat' && (
             <div>
-              <div className="flex justify-between text-xs text-gray-600 mb-2">
+              <div className={`flex justify-between text-xs mb-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 <span>Temperature</span>
                 <span className="font-medium">{device.temperature}°F</span>
               </div>
@@ -166,7 +166,7 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
           {device.type === 'fan' && (
             <div>
               <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-600">Speed</span>
+                <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Speed</span>
                 <div className="flex items-center gap-2">
                   <Button
                     size="sm"
@@ -178,7 +178,7 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
                   >
                     <ChevronDown className="w-3 h-3" />
                   </Button>
-                  <span className="text-sm font-medium w-8 text-center">{device.speed}</span>
+                  <span className={`text-sm font-medium w-8 text-center ${theme === 'dark' ? 'text-gray-200' : 'text-gray-900'}`}>{device.speed}</span>
                   <Button
                     size="sm"
                     variant="outline"
