@@ -121,7 +121,8 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
             className="p-2 rounded-lg transition-all duration-300"
             style={{ 
               backgroundColor: iconBgColor,
-              color: device.status === 'on' ? '#ffffff' : (theme === 'dark' ? '#9ca3af' : '#4b5563')
+              color: device.status === 'on' ? '#ffffff' : (theme === 'dark' ? '#9ca3af' : '#4b5563'),
+              ...glowStyle
             }}
           >
             <DeviceIcon type={device.type} />
