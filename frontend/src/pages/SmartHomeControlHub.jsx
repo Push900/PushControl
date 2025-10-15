@@ -104,16 +104,18 @@ const DeviceCard = ({ device, onUpdate, onRemove, isDragging, inRoom, roomColor,
       
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg ${
-            device.status === 'on' 
-              ? 'bg-gradient-to-br from-blue-400 to-blue-500 text-white' 
-              : 'bg-gray-100 text-gray-600'
-          } transition-all duration-300`}>
+          <div 
+            className="p-2 rounded-lg transition-all duration-300"
+            style={{ 
+              backgroundColor: iconBgColor,
+              color: device.status === 'on' ? '#ffffff' : (theme === 'dark' ? '#9ca3af' : '#4b5563')
+            }}
+          >
             <DeviceIcon type={device.type} />
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900">{device.name}</h4>
-            <p className="text-xs text-gray-500 capitalize">{device.type}</p>
+            <h4 className={`font-semibold ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>{device.name}</h4>
+            <p className={`text-xs capitalize ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{device.type}</p>
           </div>
         </div>
         <Switch
